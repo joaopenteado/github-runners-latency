@@ -1,4 +1,4 @@
-name: GitHub-hosted action runners latency report
+name: Global latency report
 
 on:
   workflow_dispatch:
@@ -7,4 +7,5 @@ on:
 
 jobs:
   gcp:
+    name: Google Cloud Platform
     uses: ./.github/workflows/gcp.yaml

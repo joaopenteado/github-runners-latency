@@ -1,4 +1,4 @@
-name: GitHub-hosted action runners latency report for Google Cloud Platform
+name: Google Cloud Platform
 
 on:
   workflow_call:

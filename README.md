@@ -8,4 +8,4 @@ See the [latest report](https://github.com/joaopenteado/github-runners-latency/a
 
 ## Support services
 
-- Google Cloud Platform
+- [Google Cloud Platform](./.github/workflows/gcp.yaml)
