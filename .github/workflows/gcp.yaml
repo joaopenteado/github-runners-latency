@@ -1,0 +1,31 @@
+name: GitHub-hosted action runners latency report for Google Cloud Platform
+
+on:
+  workflow_call:
+
+jobs:
+  gcp:
+    name: Google Cloud Platform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download gcping
+        run: curl -s -o gcping https://storage.googleapis.com/gcping-release/gcping_linux_amd64_latest && chmod +x gcping
+
+      - name: Measure latencies
+        run: ./gcping -csv-cum > gcp.csv
+        # region,latency_ns,errors
+
+      - name: Generate summary
+        run: |
+          echo -e "## GitHub-hosted action runners latency report for Google Cloud Platform\n" >> $GITHUB_STEP_SUMMARY
+          echo "|  Region  | Latency (ms) |" >> $GITHUB_STEP_SUMMARY
+          echo "|:---------|-------------:|" >> $GITHUB_STEP_SUMMARY
+
+          # Sort by latency and format as markdown table
+          sort -t',' -k2 -n <(tail -n +2 gcp.csv) | awk -F',' '{printf "| `%s` | %.2f |\n", $1, $2/1000000}' >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: gcp.csv
+          path: gcp.csv
