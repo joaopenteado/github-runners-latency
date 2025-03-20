@@ -7,6 +7,7 @@ on:
 
 jobs:
   gcp:
+    name: Google Cloud Platform
     runs-on: ubuntu-latest
     steps:
       - name: Download gcping
@@ -18,7 +19,7 @@ jobs:
 
       - name: Generate summary
         run: |
-          echo "## GitHub-hosted action runners latency report for Google Cloud Platform\n" >> $GITHUB_STEP_SUMMARY
+          echo -e "## GitHub-hosted action runners latency report for Google Cloud Platform\n" >> $GITHUB_STEP_SUMMARY
           echo "|  Region  | Latency (ms) |" >> $GITHUB_STEP_SUMMARY
           echo "|:---------|-------------:|" >> $GITHUB_STEP_SUMMARY
 
